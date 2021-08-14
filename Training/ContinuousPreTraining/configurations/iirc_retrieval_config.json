@@ -1,0 +1,81 @@
+{
+  "experiment": {
+    "experiment_name": "IIRC_Retrieval"
+  },
+  "model": {
+    "PReasM": false,
+    "sampler": "Err",
+    "size": "Base"
+  },
+  "tokenizer": "t5-base",
+  "datasets_sampler": {"type": "DatasetUniformSampler"},
+  "train_datasets": {
+    "IIRCTrain": {
+      "reader": {
+        "type": "IircRetrievalDataset",
+        "pass_tokenizer": true,
+        "path": "/ContinuousPreTraining/Data/iirc/train.json",
+        "max_seq_len": 512,
+        "summ_len": 32,
+        "generation_model": true
+      },
+      "dataloader": {
+        "LR": 1e-4,
+        "single_task_sampler": "Random",
+        "no_collator_in_eval": true
+      },
+      "predictor": "ListGenerativePredictor",
+      "eval_method": "DropEval"
+    }
+  },
+  "validation_datasets":{
+        "IIRCEval": {
+          "reader": {
+            "type": "IircRetrievalDataset",
+            "pass_tokenizer": true,
+            "path": "/ContinuousPreTraining/Data/iirc/train.json",
+            "max_seq_len": 512,
+            "summ_len": 32,
+            "retrieval_file": "PATH TO DEV SET RETRIEVAL RESULTS",
+            "generation_model": true
+          },
+          "dataloader": {
+            "batch_size": 8,
+            "no_collator_in_eval": true
+          },
+          "predictor": "ListGenerativePredictor",
+          "eval_method": "IircEval",
+          "save_error_distribution": false
+        }
+  },
+  "optimizer": {
+    "type": "AdaFactor",
+    "lr": 1e-4
+  },
+  "scheduler": {
+    "type": "linear_scheduler_with_warmup",
+    "num_warmup_steps": 500,
+    "num_training_steps": 2e32
+  },
+  "training_arguments": {
+    "num_train_epochs": 60   ,
+    "per_device_train_batch_size": 20,
+    "per_device_eval_batch_size": 30,
+    "gradient_accumulation_steps":  1,
+    "log_steps": 100,
+    "evaluation_strategy": "epoch",
+    "save_steps": 5000,
+    "eval_steps": 100,
+    "weight_decay": 0.01,
+    "save_total_limit": 5,
+    "seed": 43,
+    "prediction_loss_only": true,
+    "no_cuda": false
+  },
+  "trainer": {
+    "type": "UpdatedMtTrainer",
+    "override_huggingface_train_method": false,
+    "load_train_dataloader_after_eval": false,
+    "callbacks": []
+  }
+}

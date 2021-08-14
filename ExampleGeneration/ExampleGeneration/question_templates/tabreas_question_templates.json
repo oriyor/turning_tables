@@ -1,0 +1,481 @@
+  [
+    {
+        "name": "Counting",
+          "enable": true,
+          "type": "Counting",
+          "description": "",
+          "meaning_representation": "?",
+          "semantic_func": "Counting",
+          "sample_examples_per_template_per_context" : 2,
+          "templates": [
+            {
+              "enable": true,
+              "question_template": "In [table_title] of [page_title], how many [target_column] have [source_column] [val_1]?",
+              "numeric_higher_comparator": "after",
+              "numeric_lower_comparator": "before"
+            },
+            {
+              "enable": true,
+              "question_template": "How many [target_column] have [source_column] [val_1] in [table_title] of [page_title]?",
+              "numeric_higher_comparator": "after",
+              "numeric_lower_comparator": "before"
+            }
+          ]
+    },
+        {
+        "name": "TemporalDifference",
+          "enable": true,
+          "type": "TemporalDifference",
+          "description": "",
+          "meaning_representation": "?",
+          "semantic_func": "TemporalDifference",
+          "sample_examples_per_template_per_context" : 2,
+          "templates": [
+            {
+              "enable": true,
+              "question_template": "In [table_title] of [page_title], was the [source_column1] [val_1] [COMPARATOR] the [source_column2] was [val_2]?",
+              "numeric_higher_comparator": "after",
+              "numeric_lower_comparator": "before"
+            }
+          ]
+    },
+        {
+        "name": "SimpleConjunction",
+          "enable": true,
+          "type": "SimpleConjunction",
+          "description": "",
+          "Quantifier": "?",
+          "semantic_func": "Conjunction",
+          "sample_examples_per_template_per_context" : 2,
+          "templates": [
+            {
+              "enable": true,
+              "question_template": "In [table_title] of [page_title], what [WH] the [target_column] when the [source_column1] was [val1] and the [source_column2] was [val2]?"
+            },
+            {
+              "enable": true,
+              "question_template": "What [WH] the [target_column] when the [source_column1] was [val1] and the [source_column2] was [val2] in [table_title] of [page_title]?"
+            }
+          ]
+    },
+    {
+        "name": "OnlyQuantifier",
+          "enable": true,
+          "type": "OnlyQuantifier",
+          "description": "",
+          "Quantifier": "?",
+          "semantic_func": "Quantifier",
+          "sample_examples_per_template_per_context" : 2,
+          "templates": [
+            {
+              "enable": true,
+              "question_template": "In [table_title] of [page_title], is [from_cell_text] [QUANTIFIER_OPERATOR] [source_column] that has [target_column] [to_cell_text]?"
+            },
+            {
+              "enable": true,
+              "question_template": "Is [from_cell_text] [QUANTIFIER_OPERATOR] [source_column] that has [target_column] [to_cell_text] in [table_title] of [page_title]?"
+            }
+          ]
+    },
+    {
+        "name": "Quantifiers",
+          "enable": true,
+          "type": "Quantifiers",
+          "description": "",
+          "Quantifier": "?",
+          "semantic_func": "Quantifier",
+          "sample_examples_per_template_per_context" : 10,
+          "templates": [
+            {
+              "enable": true,
+              "question_template": "In [table_title] of [page_title], [QUANTIFIER_OPERATOR] [source_column] have [target_column] [to_cell_text]?"
+            },
+            {
+              "enable": true,
+              "question_template": "[QUANTIFIER_OPERATOR] [source_column] have [target_column] [to_cell_text] in [table_title] of [page_title]?"
+            }
+          ]
+    },
+    {
+        "name": "Arithmetic",
+          "enable": true,
+          "type": "Arithmetic",
+          "description": "",
+          "meaning_representation": "?",
+          "semantic_func": "Arithmetic",
+          "sample_examples_per_template_per_context" : 2,
+          "temporal": true,
+          "templates": [
+            {
+              "enable": true,
+              "question_template": "In [table_title] of [page_title], what was the [ARITHMETIC_OPERATOR] [target_column] when the [source_column] was [from_cell_text]?"
+            },
+            {
+              "enable": true,
+              "question_template": "What was the [ARITHMETIC_OPERATOR] [target_column] when the [source_column] was [from_cell_text] in [table_title] of [page_title]?"
+            }
+          ]
+    },
+    {
+        "name": "TemporalSuperlatives",
+          "enable": true,
+          "type": "NumericSuperlatives",
+          "description": "",
+          "meaning_representation": "?",
+          "semantic_func": "superlatives",
+          "sample_examples_per_template_per_context" : 2,
+          "temporal": true,
+          "templates": [
+            {
+              "enable": true,
+              "question_template": "In [table_title] of [page_title], which [source_column] has the [COMPARATOR] [target_column]?",
+              "numeric_higher_comparator": "most recent",
+              "numeric_lower_comparator": "earliest"
+            },
+            {
+              "enable": true,
+              "question_template": "Which [source_column] has the [COMPARATOR] [target_column] in [table_title] of [page_title]?",
+              "numeric_higher_comparator": "most recent",
+              "numeric_lower_comparator": "earliest"
+            }
+          ]
+    },
+    {
+        "name": "NumericSuperlatives",
+          "enable": true,
+          "type": "NumericSuperlatives",
+          "description": "",
+          "meaning_representation": "?",
+          "semantic_func": "superlatives",
+          "sample_examples_per_template_per_context" : 2,
+          "temporal": false,
+          "templates": [
+            {
+              "enable": true,
+              "question_template": "In [table_title] of [page_title], which [source_column] has the [COMPARATOR] [target_column]?",
+              "numeric_higher_comparator_singular": "highest",
+              "numeric_lower_comparator_singular": "lowest",
+              "numeric_higher_comparator_plural": "most",
+              "numeric_lower_comparator_plural": "fewest"
+            },
+            {
+              "enable": true,
+              "question_template": "Which [source_column] has the [COMPARATOR] [target_column] in [table_title] of [page_title]?",
+              "numeric_higher_comparator_singular": "highest",
+              "numeric_lower_comparator_singular": "lowest",
+              "numeric_higher_comparator_plural": "most",
+              "numeric_lower_comparator_plural": "fewest"
+            }
+          ]
+    },
+        {
+        "name": "TemporalComparison",
+          "enable": true,
+          "type": "Temporal",
+          "description": "",
+          "meaning_representation": "?",
+          "semantic_func": "Temporal",
+          "none_ratio": 0,
+          "sample_examples_per_context" : 10,
+          "templates": [
+            {
+              "enable": true,
+              "comparator": true,
+              "name": "temporal_comparison_what1",
+              "question_template": "What happened [COMPARATOR] in [table_title] of [page_title], the [source_column1] was [val_1] or the [source_column2] was [val_2]?",
+              "numeric_higher_comparator": "more recently",
+              "numeric_lower_comparator": "first"
+            },
+            {
+              "enable": true,
+              "comparator": true,
+              "name": "temporal_comparison_what2",
+              "question_template": "What happened [COMPARATOR] in [table_title] of [page_title], the [source_column1] was [val_1] or the [source_column2] was [val_2]?",
+              "numeric_higher_comparator": "later",
+              "numeric_lower_comparator": "earlier"
+            },
+            {
+              "enable": true,
+              "comparator": true,
+              "name": "temporal_comparison_in1",
+              "question_template": "In [table_title] of [page_title], what happened [COMPARATOR]: the [source_column1] was [val_1] or the [source_column2] was [val_2]?",
+              "numeric_higher_comparator": "more recently",
+              "numeric_lower_comparator": "first"
+            },
+            {
+              "enable": true,
+              "comparator": true,
+              "name": "temporal_comparison_in2",
+              "question_template": "In [table_title] of [page_title], what happened [COMPARATOR]: the [source_column1] was [val_1] or the [source_column2] was [val_2]?",
+              "numeric_higher_comparator": "later",
+              "numeric_lower_comparator": "earlier"
+            }
+          ]
+    },
+    {
+        "name": "TemporalDistance",
+          "enable": true,
+          "type": "Temporal",
+          "description": "",
+          "meaning_representation": "?",
+          "semantic_func": "Temporal",
+          "none_ratio": 0,
+          "sample_examples_per_context" : 10,
+          "templates": [
+            {
+              "enable": true,
+              "name": "how_long1",
+              "question_template": "In [table_title] of [page_title], how long [COMPARATOR] the [source_column1] was [val_1] was the [source_column2] [val_2]?",
+              "numeric_higher_comparator": "after",
+              "numeric_lower_comparator": "before"
+            },
+            {
+              "enable": true,
+              "name": "how_long2",
+              "question_template": "In [table_title] of [page_title], how long [COMPARATOR] the [source_column1] was [val_1], the [source_column2] was [val_2]?",
+              "numeric_higher_comparator": "after",
+              "numeric_lower_comparator": "before"
+            },
+            {
+              "enable": true,
+              "name": "time_passed",
+              "question_template": "In [table_title] of [page_title], how much time had passed between the [source_column1] being [val_1] and the [source_column2] being [val_2]?",
+              "numeric_higher_comparator": "after",
+              "numeric_lower_comparator": "before"
+            },
+            {
+              "enable": true,
+              "name": "time_passed2",
+              "question_template": "In [table_title] of [page_title], how much time had passed between when the [source_column1] was [val_1] and when the [source_column2] was [val_2]?",
+              "numeric_higher_comparator": "after",
+              "numeric_lower_comparator": "before"
+            },
+            {
+              "enable": true,
+              "how_many": true,
+              "name": "how_many1",
+              "question_template": "In [table_title] of [page_title], how many [TIME] [COMPARATOR] the [source_column1] was [val_1] was the [source_column2] [val_2]?",
+              "numeric_higher_comparator": "after",
+              "numeric_lower_comparator": "before"
+            },
+            {
+              "enable": true,
+              "how_many": true,
+              "name": "how_many2",
+              "question_template": "In [table_title] of [page_title], how many [TIME] [COMPARATOR] the [source_column1] was [val_1], the [source_column2] was [val_2]?",
+              "numeric_higher_comparator": "after",
+              "numeric_lower_comparator": "before"
+            }
+          ]
+    },
+        {
+        "name": "Temporal2",
+          "enable": true,
+          "type": "Temporal",
+          "description": "",
+          "meaning_representation": "?",
+          "semantic_func": "Temporal",
+          "sample_examples_per_template_per_context" : 2,
+          "templates": [
+            {
+              "enable": true,
+              "question_template": "What happened [COMPARATOR] in [table_title] of [page_title], the [source_column1] was [val_1] or the [source_column2] was [val_2]?",
+              "numeric_higher_comparator": "later",
+              "numeric_lower_comparator": "first"
+            }
+          ]
+    },
+    {
+        "name": "Temporal",
+          "enable": true,
+          "type": "Temporal",
+          "description": "",
+          "meaning_representation": "?",
+          "semantic_func": "Temporal",
+          "sample_examples_per_template_per_context" : 2,
+          "templates": [
+            {
+              "enable": true,
+              "question_template": "In [table_title] of [page_title], was the [source_column1] [val_1] [COMPARATOR] the [source_column2] was [val_2]?",
+              "numeric_higher_comparator": "after",
+              "numeric_lower_comparator": "before"
+            }
+          ]
+    },
+        {
+        "name": "SimpleComparison",
+          "enable": true,
+          "type": "SimpleComparison",
+          "description": "",
+          "meaning_representation": "?",
+          "semantic_func": "Comparison",
+          "sample_examples_per_template_per_context" : 2,
+          "templates": [
+            {
+              "enable": true,
+              "name": "numeric_comparison_which",
+              "question_template": "Which [source_column] had [COMPARATOR] [target_column] in [table_title] of [page_title], [val_1] or [val_2]?",
+              "numeric_higher_comparator_singular": "a higher",
+              "numeric_lower_comparator_singular": "a lower",
+              "numeric_higher_comparator_plural": "more",
+              "numeric_lower_comparator_plural": "less",
+              "none_ratio": 0
+            },
+            {
+              "enable": true,
+              "name": "numeric_comparison_in",
+              "question_template": "In [table_title] of [page_title], which [source_column] had [COMPARATOR] [target_column]: [val_1] or [val_2]?",
+              "numeric_higher_comparator_singular": "a higher",
+              "numeric_lower_comparator_singular": "a lower",
+              "numeric_higher_comparator_plural": "more",
+              "numeric_lower_comparator_plural": "less",
+              "none_ratio": 0
+            }
+          ]
+    },
+          {
+        "name": "MultihopComposition",
+          "enable": true,
+          "type": "MultihopComposition",
+          "description": "",
+          "meaning_representation": "?",
+          "semantic_func": "Composition",
+          "sample_examples_per_template_per_context" : 2,
+          "templates": [
+            {
+              "enable": true,
+              "copy_from": "ColumnHop",
+              "question_template": "In [table_title] of [page_title], what was the [target_column](s) when the [source_column] was [from_cell_text]?",
+              "none_ratio": 0
+            },
+            {
+              "enable": true,
+              "copy_from": "ColumnHop",
+              "question_template": "What was the [target_column](s) when the [source_column] was [from_cell_text] in [table_title] of [page_title]?",
+              "none_ratio": 0
+            }
+      ]
+    },
+      {
+        "name": "SimpleComposition",
+          "enable": true,
+          "type": "SimpleComposition",
+          "description": "",
+          "meaning_representation": "?",
+          "semantic_func": "Composition",
+          "sample_examples_per_template_per_context" : 2,
+          "templates": [
+            {
+              "enable": true,
+              "copy_from": "ColumnHop",
+              "question_template": "In [table_title] of [page_title], what was the [target_column](s) when the [source_column] was [from_cell_text]?",
+              "none_ratio": 0
+            },
+            {
+              "enable": true,
+              "copy_from": "ColumnHop",
+              "question_template": "What was the [target_column](s) when the [source_column] was [from_cell_text] in [table_title] of [page_title]?",
+              "none_ratio": 0
+            }
+      ]
+    },
+    {
+        "name": "Simple",
+          "enable": true,
+          "type": "Simple",
+          "description": "",
+          "meaning_representation": "?",
+          "semantic_func": "Simple",
+          "sample_examples_per_template_per_context" : 1,
+          "templates": [
+            {
+              "enable": true,
+              "copy_from": "ColumnHop",
+              "question_template": "In [table_title] of [page_title], what was the [target_column](s) when the [source_column] was [from_cell_text]?",
+              "none_ratio": 0
+            },
+            {
+              "enable": true,
+              "copy_from": "ColumnHop",
+              "question_template": "What was the [target_column](s) when the [source_column] was [from_cell_text] in [table_title] of [page_title]?",
+              "none_ratio": 0
+            }
+      ]
+    },
+
+        {
+        "name": "NumericBooleanComparison",
+          "enable": true,
+          "type": "NumericBooleanComparison",
+          "description": "",
+          "meaning_representation": "?",
+          "semantic_func": "Comparison",
+          "sample_examples_per_template_per_context" : 2,
+          "templates": [
+            {
+              "enable": true,
+              "name": "numeric_comparison_which",
+              "question_template": "Was the [target_column] when the [source_column] was [val_1] [COMPARATOR] than the [target_column] when the [source_column] was [val_2] in [table_title] of [page_title]?",
+              "numeric_higher_comparator_singular": "higher",
+              "numeric_lower_comparator_singular": "lower",
+              "numeric_higher_comparator_plural": "more",
+              "numeric_lower_comparator_plural": "less",
+              "none_ratio": 0
+            },
+            {
+              "enable": true,
+              "name": "numeric_comparison_in",
+              "question_template": "In [source_column]s of [table_title] of [page_title], did [val_1] have [COMPARATOR] [target_column] than [val_2]?",
+              "numeric_higher_comparator_singular": "a higher",
+              "numeric_lower_comparator_singular": "a lower",
+              "numeric_higher_comparator_plural": "more",
+              "numeric_lower_comparator_plural": "less",
+              "none_ratio": 0
+            }
+          ]
+    },
+    {
+        "name": "TemporalBooleanComparison",
+          "enable": true,
+          "type": "TemporalBooleanComparison",
+          "description": "",
+          "meaning_representation": "?",
+          "semantic_func": "Temporal",
+          "none_ratio": 0,
+          "sample_examples_per_context" : 10,
+          "templates": [
+            {
+              "enable": true,
+              "comparator": true,
+              "name": "temporal_comparison_what1",
+              "question_template": "The [source_column1] was [val_1] [COMPARATOR] the [source_column2] was [val_2] in [table_title] of [page_title]?",
+              "numeric_higher_comparator": "more recently than when",
+              "numeric_lower_comparator": "earlier than when"
+            },
+            {
+              "enable": true,
+              "comparator": true,
+              "name": "temporal_comparison_what2",
+              "question_template": "The [source_column1] was [val_1] [COMPARATOR] the [source_column2] was [val_2] in [table_title] of [page_title]?",
+              "numeric_higher_comparator": "after",
+              "numeric_lower_comparator": "before"
+            },
+            {
+              "enable": true,
+              "comparator": true,
+              "name": "temporal_comparison_in1",
+              "question_template": "In [table_title] of [page_title], the [source_column1] was [val_1] [COMPARATOR] the [source_column2] was [val_2]?",
+              "numeric_higher_comparator": "later than when",
+              "numeric_lower_comparator": "earlier than when"
+            },
+            {
+              "enable": true,
+              "comparator": true,
+              "name": "temporal_comparison_in2",
+              "question_template": "In [table_title] of [page_title], the [source_column1] was [val_1] [COMPARATOR] the [source_column2] was [val_2]?",
+              "numeric_higher_comparator": "after",
+              "numeric_lower_comparator": "before"
+            }
+          ]
+    }
+  ]

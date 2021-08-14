@@ -1,0 +1,153 @@
+{
+  "experiment": {
+    "experiment_name": "PReasM_Moment"
+  },
+  "model": {
+    "PReasM": false,
+    "size": "Base"
+  },
+  "tokenizer": "t5-base",
+  "datasets_sampler": {"type": "LambdaMlmSampler", "lmbda": 0.5},
+  "train_datasets": {
+    "WikiTrain": {
+      "reader": {
+        "type": "T5MlmDataset",
+        "path": "https://tabreas.s3-us-west-2.amazonaws.com/mlm_data/t5_wiki_train_256.jsonl",
+        "pass_tokenizer": true,
+        "num_examples_to_load": 1000000,
+        "max_input_token_len": 260,
+        "max_output_token_len": 57
+      },
+      "dataloader": {
+        "LR": 3e-5,
+        "single_task_sampler": "Random",
+        "no_collator_in_eval": true
+      },
+      "predictor": "SpanPredictor",
+      "eval_method": "SpanEvaluator"
+    },
+    "SyntheticQuestionTrain": {
+      "reader": {
+        "type": "SyntheticQuestionsMultiDatasets",
+        "pass_tokenizer": true,
+        "path": "https://tabreas.s3-us-west-2.amazonaws.com/synthetic_questions_train_wip/",
+        "skills": [
+                "counting",
+                "numeric_superlatives",
+                "numeric comparison",
+                "composition_2_hop",
+                "composition",
+                "numeric_comparison_boolean",
+                "temporal_comparison",
+                "temporal_difference",
+                "temporal_comparison_boolean",
+                "conjunction",
+                "arithmetic_superlatives",
+                "arithmetic_addition",
+                "most_quantifier",
+                "only_quantifier",
+                "every_quantifier",
+                "temporal_superlatives"
+            ],
+        "max_input_token_len": 384,
+        "max_output_token_len": 32,
+        "generation_model": true
+      },
+      "dataloader": {
+        "LR": 1e-4,
+        "single_task_sampler": "LengthGroupedSampler"
+      },
+      "predictor": "GenerativePredictor",
+      "eval_method": "DropEval",
+      "dataset_sampler": {
+    "type": "AdaptiveErrorHeterogeneousSampler",
+                        "pass_trainer_state": true,
+                        "is_adaptive": true,
+                        "normalize_with_prev": true,
+                        "distribution_name": "SyntheticQuestionValidation"
+      }
+    }
+  },
+  "validation_datasets":{
+        "SyntheticQuestionValidation": {
+          "reader": {
+            "type": "SyntheticQuestionsMultiDatasets",
+            "pass_tokenizer": true,
+            "path": "https://tabreas.s3-us-west-2.amazonaws.com/generated_reasoning_examples_train/",
+            "skills":  [
+                "counting",
+                "numeric_superlatives",
+                "numeric comparison",
+                "composition_2_hop",
+                "composition",
+                "numeric_comparison_boolean",
+                "temporal_comparison",
+                "temporal_difference",
+                "temporal_comparison_boolean",
+                "conjunction",
+                "arithmetic_superlatives",
+                "arithmetic_addition",
+                "most_quantifier",
+                "only_quantifier",
+                "every_quantifier",
+                "temporal_superlatives"
+            ],
+            "max_input_token_len": 384,
+            "max_output_token_len": 32,
+            "num_examples_to_load": 1000,
+            "generation_model": true
+          },
+          "dataloader": {
+          },
+          "predictor": "GenerativePredictor",
+          "eval_method": "DropEval",
+          "save_error_distribution": true
+        },
+      "WikiEval": {
+        "reader": {
+          "type": "T5MlmDataset",
+              "path": "https://tabreas.s3-us-west-2.amazonaws.com/mlm_data/t5_wiki_eval_256.jsonl",
+              "pass_tokenizer": true,
+              "num_examples_to_load": 1000,
+              "num_wiki_examples": 75299,
+              "max_input_token_len": 260,
+              "max_output_token_len": 57
+            },
+            "dataloader": {
+              "no_collator_in_eval": true
+            },
+            "predictor": "SpanPredictor",
+            "eval_method": "SpanEvaluator",
+            "save_error_distribution": false
+          }
+  },
+  "optimizer": {
+    "type": "AdaFactor",
+    "lr": 1e-4
+  },
+  "scheduler": {
+    "type": "linear_scheduler_with_warmup",
+    "num_warmup_steps": 500,
+    "num_training_steps": 2e32
+  },
+  "training_arguments": {
+    "num_train_epochs": 1000,
+    "per_device_train_batch_size": 40,
+    "per_device_eval_batch_size": 60,
+    "gradient_accumulation_steps": 1,
+    "log_steps": 100,
+    "save_steps": 5000,
+    "eval_steps": 500,
+    "weight_decay": 0.01,
+    "save_total_limit": 5,
+    "seed": 43,
+    "prediction_loss_only": true,
+    "no_cuda": false
+  },
+  "trainer": {
+    "type": "UpdatedMtTrainer",
+    "override_huggingface_train_method": true,
+    "load_train_dataloader_after_eval": true,
+    "callbacks": ["MultiTaskHeterogeneousCallback"]
+  }
+}

@@ -1,0 +1,63 @@
+# Temporary and binary files
+*~
+*.py[cod]
+*.so
+*.cfg
+!.isort.cfg
+!setup.cfg
+*.orig
+*.log
+*.pot
+__pycache__/*
+.cache/*
+.*.swp
+*/.ipynb_checkpoints/*
+.DS_Store
+ExampleGeneration/venv/
+ExampleGeneration/models_cache/
+ExampleGeneration/data/
+ExampleGeneration/reasoning_examples
+
+# Data models and analysis
+Training/ContinuousPreTraining/Data/raw_wikipedia/
+Training/ContinuousPreTraining/Data/MLM/
+Training/ContinuousPreTraining/Data/MLM/mlm_data.jsonl
+Training/ContinuousPreTraining/Runs/
+
+# Project files
+.ropeproject
+.project
+.pydevproject
+.settings
+.idea
+.idea/
+.idea/workspace.xml
+ExampleGeneration/.idea
+tags
+
+# Package files
+*.egg
+*.eggs/
+.installed.cfg
+*.egg-info
+
+# Unittest and coverage
+htmlcov/*
+.coverage
+.tox
+junit.xml
+coverage.xml
+.pytest_cache/
+
+# Build and docs folder/files
+build/*
+dist/*
+sdist/*
+docs/api/*
+docs/_rst/*
+docs/_build/*
+cover/*
+MANIFEST
+
+# Per-project virtualenvs
+.venv*/

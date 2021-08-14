@@ -1,0 +1,72 @@
+{
+  "experiment": {
+    "experiment_name": "DROP"
+  },
+  "model": {
+    "PReasM": true,
+    "sampler": "Err",
+    "size": "Base"
+  },
+  "tokenizer": "t5-base",
+  "datasets_sampler": {"type": "DatasetUniformSampler"},
+  "train_datasets": {
+    "DROP_train": {
+      "reader": {
+        "type": "UnifiedQaDataset",
+        "pass_tokenizer": true,
+        "path": "/ContinuousPreTraining/Data/drop/parsed_drop_train_with_lists.json",
+        "max_input_token_len": 512,
+        "max_output_token_len": 32,
+        "generation_model": true
+      },
+      "dataloader": {
+        "single_task_sampler": "LengthGroupedSampler"
+      }
+    }
+  },
+  "validation_datasets":{
+    "DROP_eval": {
+      "reader": {
+        "type": "UnifiedQaDataset",
+        "pass_tokenizer": true,
+        "path": "/ContinuousPreTraining/Data/drop/parsed_drop_dev_with_lists.json",
+        "max_input_token_len": 512,
+        "max_output_token_len": 32,
+        "generation_model": true
+      },
+      "dataloader": {
+      },
+      "predictor": "ListGenerativePredictor",
+      "eval_method": "DropListEval"
+    }
+  },
+  "optimizer": {
+    "type": "AdaFactor",
+    "lr": 1e-4
+  },
+  "scheduler": {
+    "type": "linear_scheduler_with_warmup",
+    "num_warmup_steps": 500,
+    "num_training_steps": 2e32
+  },
+  "training_arguments": {
+    "num_train_epochs": 20,
+    "per_device_train_batch_size": 20,
+    "per_device_eval_batch_size": 24,
+    "gradient_accumulation_steps": 1,
+    "log_steps": 100,
+    "eval_steps": 500,
+    "save_steps": 100000,
+    "evaluation_strategy": "epoch",
+    "weight_decay": 0.01,
+    "save_total_limit": 5,
+    "seed": 42,
+    "prediction_loss_only": true,
+    "no_cuda": false
+  },
+  "trainer": {
+    "type": "UpdatedMtTrainer",
+    "load_train_dataloader_after_eval": false,
+    "callbacks": []
+  }
+}

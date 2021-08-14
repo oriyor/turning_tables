@@ -1,0 +1,62 @@
+{
+  "ParseWikiDump": { "enable": false,
+        "type": "ParseWikiDump",
+        "description": "Creates a MultiQA object from every table in wikipedia with the specified dimension filter",
+        "dump_file_path": "s3://tabreas/wiki_dump_example/enwiki-20200101-pages-articles10.xml-p2336425p3046511.bz2",
+        "output_file": "enwiki-20200101-pages-articles10.xml-p2336425p3046511_parsed.gz",
+        "max_number_of_examples": 10,
+        "n_processes": 5,
+        "max_chunk_size": 10,
+        "min_table_rows": 10,
+        "min_table_cols": 2,
+        "max_table_rows": 25
+    },
+  "ReasClassifyColumnTypes": {
+    "enable": false,
+    "type": "ReasClassifyColumnTypes",
+    "description": "Adds a type to the table columns that are non-index, numbers/dates ... ",
+    "input_file":  "https://tabreas.s3-us-west-2.amazonaws.com/parsed_data_chunks/chunk_0000.gz",
+    "output_file": "ClassifyTableColumnsFiltered.jsonl",
+    "max_number_of_examples": 100000,
+    "n_processes": 8,
+    "max_chunk_size": 1000
+  },
+  "GenQuestionsFromTemplates_TabReas": {"enable": false,
+        "type": "GenSyntheticQuestionsFromTemplates",
+        "description": "Creates synthetic questions",
+        "input_file": "ClassifyTableColumnsFiltered.jsonl",
+        "output_file": "PseudoLangQuestions_All.jsonl",
+        "reset_qas": true,
+        "question_templates_file": "tabreas_question_templates.json",
+        "templates_to_use": [
+          "SimpleConjunction",
+          "SimpleComparison",
+          "TemporalDistance",
+          "TemporalComparison",
+          "NumericSuperlatives",
+          "TemporalSuperlatives",
+          "Arithmetic",
+          "Counting",
+          "NumericBooleanComparison",
+          "TemporalBooleanComparison",
+          "MultihopComposition",
+          "SimpleConjunction",
+          "OnlyQuantifier",
+          "Quantifiers",
+          "TemporalDistance"
+        ],
+        "max_number_of_examples": 10000000,
+        "n_processes": 20,
+        "max_chunk_size": 1000
+    },
+    "FormatSyntheticQuestions":
+    {   "enable": false,
+        "type": "FormatQuestions",
+        "description": "Format the questions to triplets of question, context, and answer",
+        "input_file": "PseudoLangQuestions_All.jsonl",
+        "output_file": "FormattedQuestions.jsonl",
+        "max_number_of_examples": 100000,
+        "n_processes": 1,
+        "max_chunk_size": 20000
+    }
+}
